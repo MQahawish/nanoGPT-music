@@ -1,0 +1,1 @@
+START n50 d3 n45 d3 n38 d3 sepxx d3 n50 d1 n45 d1 n38 d1 sepxx d3 n51 d2 n46 d2 n39 d2 sepxx d2 n50 d2 n45 d2 n38 d2 sepxx d2 n48 d2 n43 d2 n36 d2 sepxx d6 n58 d3 n53 d3 n46 d3 sepxx d3 n58 d1 n53 d1 n46 d1 sepxx d3 n60 d2 n55 d2 n48 d2

@@ -5,17 +5,58 @@ import os
 import pickle
 from contextlib import nullcontext
 import torch
-import tiktoken
 from model import GPTConfig, GPT
+from music21 import *
+from encoding_decoding import txt2midi
+import random
+
+
+def fix_model_gen(text):
+    # if first move is START and last move is END, remove them
+    if text.startswith("START"):
+        text = text[6:]
+    if text.endswith("END"):
+        text = text[:-4]
+    words = text.split()
+    for word in words:
+        if word == "END":
+            # if the previous word is a dY , and the next word is a dX , make word sepxx
+            if words[words.index(word) - 1].startswith("d") and words[words.index(word) + 1].startswith("d"):
+                words[words.index(word)] = "sepxx"
+            if words[words.index(word) - 1].startswith("d") and words[words.index(word) + 1].startswith("n"):
+               #remove the word
+                words.remove(word)
+
+    # print if there is an odd number of words
+    if len(words) % 2 == 1:
+        print("Odd number of words")
+        # remove the last word if there is an odd number of words
+        words = words[:-1]
+    pairs = []
+    for i in range(len(words)):
+        if i % 2 == 0:
+            pairs.append([words[i], words[i + 1]])
+    # construct the text again by concatenating the pairs
+    text = ""
+    for pair in pairs:
+        # if pair[0].startswith("d") and !pair[1].startswith("") , and flip them if so
+        if pair[0].startswith("d") and not pair[1].startswith("d"):
+            temp = pair[0]
+            pair[0] = pair[1]
+            pair[1] = temp
+        text += pair[0] + " " + pair[1] + " "
+    return text
+    
+
 
 # -----------------------------------------------------------------------------
 init_from = 'resume' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
-out_dir = 'out' # ignored if init_from is not 'resume'
-start = "\n" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
-num_samples = 10 # number of samples to draw
+out_dir = 'piano-model' # ignored if init_from is not 'resume'
+start = "START" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
+num_samples = 1 # number of samples to draw
 max_new_tokens = 500 # number of tokens generated in each sample
-temperature = 0.8 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
-top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
+temperature = 1.1 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
+top_k = 100 # retain only the top_k most likely tokens, clamp others to have 0 probability
 seed = 1337
 device = 'cuda' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1', etc.
 dtype = 'bfloat16' if torch.cuda.is_bf16_supported() else 'float16' # 'float32' or 'bfloat16' or 'float16'
@@ -54,7 +95,7 @@ if compile:
     model = torch.compile(model) # requires PyTorch 2.0 (optional)
 
 # look for the meta pickle in case it is available in the dataset folder
-load_meta = False
+load_meta = True
 if init_from == 'resume' and 'config' in checkpoint and 'dataset' in checkpoint['config']: # older checkpoints might not have these...
     meta_path = os.path.join('data', checkpoint['config']['dataset'], 'meta.pkl')
     load_meta = os.path.exists(meta_path)
@@ -62,28 +103,43 @@ if load_meta:
     print(f"Loading meta from {meta_path}...")
     with open(meta_path, 'rb') as f:
         meta = pickle.load(f)
+    print(f"meta vocab_size is {meta['vocab_size']}")
     # TODO want to make this more general to arbitrary encoder/decoder schemes
     stoi, itos = meta['stoi'], meta['itos']
-    encode = lambda s: [stoi[c] for c in s]
-    decode = lambda l: ''.join([itos[i] for i in l])
-else:
-    # ok let's assume gpt-2 encodings by default
-    print("No meta.pkl found, assuming GPT-2 encodings...")
-    enc = tiktoken.get_encoding("gpt2")
-    encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
-    decode = lambda l: enc.decode(l)
+    encode = lambda s: [stoi[c] for c in s.split()]
+    decode = lambda l: ' '.join([itos[i] for i in l])
+# else:
+#     # ok let's assume gpt-2 encodings by default
+#     # print("No meta.pkl found, assuming GPT-2 encodings...")
+#     # enc = tiktoken.get_encoding("gpt2")
+#     # encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
+#     # decode = lambda l: enc.decode(l)
 
-# encode the beginning of the prompt
-if start.startswith('FILE:'):
-    with open(start[5:], 'r', encoding='utf-8') as f:
-        start = f.read()
+# # encode the beginning of the prompt
+# if start.startswith('FILE:'):
+#     with open(start[5:], 'r', encoding='utf-8') as f:
+#         start = f.read()
+
+# randomly select a file from your training data
+all_files = [f for f in os.listdir('AllMidiTexts') if f.endswith('.txt')]
+selected_file = random.choice(all_files)
+
+# read the file and take the first N tokens as the start prompt
+with open(os.path.join('AllMidiTexts', selected_file), 'r') as f:
+    song_text = f.read()
+start = ' '.join(song_text.split()[:100])
+
+
 start_ids = encode(start)
 x = (torch.tensor(start_ids, dtype=torch.long, device=device)[None, ...])
+
+
 
 # run generation
 with torch.no_grad():
     with ctx:
         for k in range(num_samples):
             y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
-            print(decode(y[0].tolist()))
-            print('---------------')
+            predicted_text = decode(y[0].tolist())
+            print(predicted_text)
+            txt2midi(fix_model_gen(predicted_text), "samples")

@@ -1,0 +1,1 @@
+START sepxx d16 n69 d8 n67 d8 n60 d8 n53 d8 sepxx d7 n70 d8 n65 d8 n62 d8 n60 d8 sepxx d7 n74 d2 n72 d2 sepxx d2 n72 d7 n69 d7 n67 d7 n53 d7 sepxx d8 n74 d8 n72 d8 n65 d8 n60 d8 sepxx d1 n77 d7 sepxx d2 n84 d5 sepxx d2 n96 d3

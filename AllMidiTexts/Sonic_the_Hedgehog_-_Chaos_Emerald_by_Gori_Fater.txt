@@ -1,0 +1,1 @@
+START n76 d1 n72 d1 sepxx d1 n79 d1 n76 d1 sepxx d1 n84 d1 n79 d1 sepxx d1 n88 d2 n84 d2 sepxx d2 n84 d2 n81 d2 sepxx d2 n91 d9 n86 d9 sepxx d1 n96 d1 sepxx d1 n95 d1 n93 d1 sepxx d2 n91 d1 sepxx d1 n96 d1 sepxx d1 n95 d1 n93 d1 sepxx d2 n91 d1 sepxx d1 n96 d1 n91 d8 n86 d8 sepxx d1 n95 d1 n93 d1 sepxx d2 n91 d1 sepxx d1 n96 d1 sepxx d1 n95 d1 n93 d1 sepxx d2 n91 d5
