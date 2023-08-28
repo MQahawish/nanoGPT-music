@@ -109,13 +109,29 @@ class MidiGenerator:
 
         return model
 
-    def generate_midi(self):
+    def generate_midi(self,selected_option,bpm=120):
+        response = ""
+        song_name = ""
         # Generate a new midi file using the loaded model and data.
-        selected_file = random.choice(self.all_files)
-        with open(os.path.join('AllMidiTexts', selected_file), 'r') as f:
-            song_text = f.read()
-        start = ' '.join(song_text.split()[:1])
-        start="sepxx"
+        if selected_option == 'New Piece':
+            start="sepxx"
+            response = "This a new piece the model generated" 
+            song_name = ""
+        if selected_option == 'Continue Song':
+            selected_file = random.choice(self.all_files)
+            with open(os.path.join('AllMidiTexts', selected_file), 'r') as f:
+                song_text = f.read()
+            #remove the txt extension
+            selected_file = selected_file[:-4]
+            response = "This is a continuation of the song:"
+            song_name = selected_file
+            #get the first 100 tokens of the song, and not 100 letters
+            song_text = song_text.split()
+            start = ""
+            for i in range(100):
+                start += song_text[i] + " "
+            #remove START token
+            start = start[6:]
         start_ids = self.encode(start)
         x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])
 
@@ -126,18 +142,8 @@ class MidiGenerator:
             else:
                 y = self.model.generate(x, 500, temperature=self.temperature, top_k=self.top_k)
             predicted_text = self.decode(y[0].tolist())
-            txt2midi(fix_model_gen(predicted_text), "samples")
+            txt2midi(fix_model_gen(predicted_text), "samples",bpm=bpm)
+        return response,song_name
 
 
-# if __name__ == '__main__':
-#     midi_generator = MidiGenerator()
-
-#     while True:
-#         user_input = input("Generate a new MIDI? (y/n): ")
-#         if user_input == 'n':
-#             break
-#         elif user_input == 'y':
-#             midi_generator.generate_midi()
-#             time.sleep(1)
-#             print("MIDI generated!")
 

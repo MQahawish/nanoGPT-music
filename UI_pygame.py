@@ -13,9 +13,9 @@ import matplotlib.pyplot as plt
 pygame.init()
 
 # set the dimensions of the window and create it
-window_surface = pygame.display.set_mode((800, 700))
+window_surface = pygame.display.set_mode((800, 800))
 
-manager = pygame_gui.UIManager((800, 700))
+manager = pygame_gui.UIManager((800, 800))
 
 clock = pygame.time.Clock()
 
@@ -44,7 +44,20 @@ top_k_label = Label(relative_rect=pygame.Rect((50, 290), (100, 20)), text='Top K
 top_k_slider = Slider(relative_rect=pygame.Rect((50, 320), (200, 20)), start_value=105, value_range=(10, 200), manager=manager)
 top_k_value_label = Label(relative_rect=pygame.Rect((260, 320), (50, 20)), text=str(top_k_slider.get_current_value()), manager=manager)
 
+bmp_label = Label(relative_rect=pygame.Rect((50, 360), (100, 20)), text='BPM', manager=manager)
+bmp_slider = Slider(relative_rect=pygame.Rect((50, 390), (200, 20)), start_value=120, value_range=(60, 240), manager=manager)
+bmp_value_label = Label(relative_rect=pygame.Rect((260, 390), (50, 20)), text=str(bmp_slider.get_current_value()), manager=manager)
+
 status_label = Label(relative_rect=pygame.Rect((350, 220), (300, 20)), text='', manager=manager)
+response_label = Label(relative_rect=pygame.Rect((250, 250), (600, 40)), text='', manager=manager)
+song_name_label = Label(relative_rect=pygame.Rect((350, 290), (300, 20)), text='Song Name', manager=manager)
+
+# Create buttons for the two options
+new_piece_button = Button(relative_rect=pygame.Rect((50, 460), (200, 50)), text='New Piece ✓', manager=manager)
+continue_song_button = Button(relative_rect=pygame.Rect((260, 460), (200, 50)), text='Continue Song', manager=manager)
+
+# Create a variable to hold the selected option
+selected_option = 'New Piece'  # or 'Continue Song'
 
 playing = False
 piano_roll_image = None
@@ -61,8 +74,10 @@ while True:
                 if event.ui_element == generate_button:
                     status_label.set_text('Generating, please wait...')
                     try:
-                        midi_generator.generate_midi()
+                        response,song_name=midi_generator.generate_midi(selected_option,bpm=int(bmp_slider.get_current_value()))
                         status_label.set_text('Generation complete!')
+                        response_label.set_text(response)
+                        song_name_label.set_text(song_name)  
                         # Load MIDI file into PrettyMIDI object
                         midi_data = pretty_midi.PrettyMIDI('samples/test.mid')
                         # Retrieve piano roll of the MIDI file
@@ -73,6 +88,7 @@ while True:
                         piano_roll_image = pygame.transform.scale(piano_roll_image, (800, 300))  # Scaled to fit the bottom half
                     except:
                         status_label.set_text('Generation failed!, Try Again please..')
+                        response_label.set_text('')
 
                 elif event.ui_element == play_button:
                     mixer.music.load('samples/test.mid')
@@ -81,6 +97,15 @@ while True:
                 elif event.ui_element == stop_button and playing:
                     mixer.music.stop()
                     playing = False
+                        # Add these lines to update selected_option based on button click
+                if event.ui_element == new_piece_button:
+                    selected_option = 'New Piece'
+                    new_piece_button.set_text('New Piece ✓')
+                    continue_song_button.set_text('Continue Song')
+                elif event.ui_element == continue_song_button:
+                    selected_option = 'Continue Song'
+                    continue_song_button.set_text('Continue Song ✓')
+                    new_piece_button.set_text('New Piece')
 
             if event.user_type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 if event.ui_element == volume_slider:
@@ -95,6 +120,8 @@ while True:
                 elif event.ui_element == top_k_slider:
                     midi_generator.set_top_k(int(top_k_slider.get_current_value()))
                     top_k_value_label.set_text(str(int(top_k_slider.get_current_value())))
+                elif event.ui_element == bmp_slider:
+                    bmp_value_label.set_text(str(int(bmp_slider.get_current_value())))
 
         manager.process_events(event)
 
@@ -105,7 +132,7 @@ while True:
     
     # Draw the piano roll image
     if piano_roll_image is not None:
-        window_surface.blit(piano_roll_image, (0, 350))  # Positioned at the bottom half
+        window_surface.blit(piano_roll_image, (0, 500))  # Positioned at the bottom half
     
     manager.draw_ui(window_surface)
 

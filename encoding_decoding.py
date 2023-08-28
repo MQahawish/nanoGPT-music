@@ -122,14 +122,14 @@ def process_text(text):
     return np.array(int_tuples)
 
 
-def txt2midi(text,output_dir, name="test"):
+def txt2midi(text,output_dir, name="test", bpm=120):
     # Check if output directory exists
     if not os.path.isdir(output_dir):
         print(f"Output directory {output_dir} does not exist.")
         return
 
     array = process_text(text)
-    midi = npenc2stream(array)
+    midi = npenc2stream(array, bpm=bpm)
     # take the last part of the path and remove the .txt extension
     midi.write("midi", f"{output_dir}/{name}.mid")
 
