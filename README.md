@@ -12,9 +12,9 @@ Through the GUI, users have the option to:
 2) Create a continuation of a random song from the dataset on which the model was trained.
 
 Additionally, the GUI offers controls for adjusting various parameters of the model's generation process, including:
-1)Temperature: This affects the model's level of "creativity" in generating the piece.
-2)Number of Tokens to Generate: This specifies the length of the generated output.
-3)Top K Tokens: Users can select the top 'K' tokens to be considered during the generation process, while all other tokens are assigned a probability of zero.
+1) Temperature: This affects the model's level of "creativity" in generating the piece.
+2) Number of Tokens to Generate: This specifies the length of the generated output.
+3) Top K Tokens: Users can select the top 'K' tokens to be considered during the generation process, while all other tokens are assigned a probability of zero.
 
 ## install
 
