@@ -55,6 +55,7 @@ to easily run the program, just run the UI_Pygame.py script either using the IDE
 Due to my humble computation resources of only 1 GPU on my laptop, I only trained two models ( 5.6M and 13M parameters ) . Trying to train bigger models would be so slow and take a lot of time, my laptop might catch on fire if trained for too long on big models haha
 
 - 5.6M model
+  ** 3 Layers, 6 Heads, 384 embedding **
 
 ![Example Image](./piano-model-5.63M/loss_plot.png)
 
@@ -62,7 +63,10 @@ Due to my humble computation resources of only 1 GPU on my laptop, I only traine
 
 
 - 13M model
+  ** 4 Layers, 8 Heads, 512 embedding **
 
 ![Example Image](./piano-model-13M/loss_plot.png)
 
 
+
+As we can see the 13M model performed better, this is an indication that more Layers/Heads can lead to better results . Adding more Layers can make the model capture and learn more complex patterns, Adding more heads can increase the attention to how different tokens affect/interact with each other in the input ( Input used is of size 200 tokens ) . A better environment with better computation resources would allow further Hyperparameter tuning in hopes of achieving lower val/training loss .
