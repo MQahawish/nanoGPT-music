@@ -1,7 +1,7 @@
 
 # nanoGPT for piano :musical_keyboard:
 
-This project extends the foundational work of Andrej Karpathy's nanoGPT, which focused on creating and training a GPT-2-based model. In our case, we have developed a graphical user interface (GUI) using the Pygame library to interact with a modified version of a GPT-2-like model. Our adaptation differs from the original nanoGPT in that it functions at the word level, as opposed to the character level.
+This project extends the foundational work of Andrej Karpathy's nanoGPT, which focused on creating and training a GPT-2-based model. In our case, I have developed a graphical user interface (GUI) using the Pygame library to interact with a modified version of a GPT-2-like model. My adaptation differs from the original nanoGPT in that it functions at the word level, as opposed to the character level.
 
 In the scope of this project, the term "word" is specialized to mean one of two musical elements:
 1) A pitch or a rest
