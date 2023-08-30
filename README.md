@@ -56,13 +56,13 @@ Due to my humble computation resources of only 1 GPU on my laptop, I only traine
 
 - 5.6M model
 
-![Example Image](./piano-model-5.63M\loss_plot.png)
+![Example Image](./piano-model-5.63M/loss_plot.png)
 
 ** The spike is because I changed the learning rate by mistake in an interval of time-steps during training 
 
 
 - 13M model
 
-![Example Image](./piano-model-13M\loss_plot.png)
+![Example Image](./piano-model-13M/loss_plot.png)
 
 
