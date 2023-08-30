@@ -1,11 +1,9 @@
-import time
 from encoding_decoding import txt2midi
 import os
 import pickle
 from contextlib import nullcontext
 import torch
 from model import GPTConfig, GPT
-from music21 import *
 import random
 
 def fix_model_gen(text):
@@ -48,10 +46,9 @@ def fix_model_gen(text):
 
 class MidiGenerator:
     def __init__(self,out_dir="piano-model",device='cuda',temperature=1.1,top_k=100,max_new_tokens=500):
-        self.device = device 
+        self.device ='cuda' if torch.cuda.is_available() else 'cpu'
         self.device_type = 'cuda' if 'cuda' in self.device else 'cpu' 
         self.dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
-        self.dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16  # or set to torch.float32 or whatever you prefer
         self.ctx = nullcontext() if self.device_type == 'cpu' else torch.cuda.amp.autocast(enabled=True, dtype=self.dtype)
         self.init_from = 'resume' 
         self.out_dir = out_dir
@@ -109,7 +106,7 @@ class MidiGenerator:
 
         return model
 
-    def generate_midi(self,selected_option,bpm=120):
+    def generate_midi(self,selected_option,bpm=120,last_song=""):
         response = ""
         song_name = ""
         # Generate a new midi file using the loaded model and data.
@@ -118,7 +115,13 @@ class MidiGenerator:
             response = "This a new piece the model generated" 
             song_name = ""
         if selected_option == 'Continue Song':
-            selected_file = random.choice(self.all_files)
+            if last_song=="":
+                selected_file = random.choice(self.all_files)
+                song_name = selected_file[:-4]
+            else:
+                # add the txt extension
+                selected_file = last_song + ".txt"
+                song_name = last_song
             with open(os.path.join('AllMidiTexts', selected_file), 'r') as f:
                 song_text = f.read()
             #remove the txt extension

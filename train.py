@@ -274,9 +274,9 @@ t0 = time.time()
 local_iter_num = 0 # number of iterations in the lifetime of this process
 raw_model = model.module if ddp else model # unwrap DDP container if needed
 running_mfu = -1.0
-logging.basicConfig(filename='piano-model/training.log', filemode='a', format='%(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='piano-model-13M/training.log', filemode='a', format='%(name)s - %(levelname)s - %(message)s')
 # save also the config in the same directory as the training log , as text file
-with open('piano-model/config.txt', 'w') as f:
+with open('piano-model-13M/config.txt', 'w') as f:
     for key in config:
         f.write("%s: %s\n" % (key, config[key]))
 while True:
