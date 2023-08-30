@@ -1,5 +1,5 @@
 
-# nanoGPT for piano
+# nanoGPT for piano :musical_keyboard:
 
 This project extends the foundational work of Andrej Karpathy's nanoGPT, which focused on creating and training a GPT-2-based model. In our case, we have developed a graphical user interface (GUI) using the Pygame library to interact with a modified version of a GPT-2-like model. Our adaptation differs from the original nanoGPT in that it functions at the word level, as opposed to the character level.
 
@@ -16,7 +16,7 @@ Additionally, the GUI offers controls for adjusting various parameters of the mo
 2) Number of Tokens to Generate: This specifies the length of the generated output.
 3) Top K Tokens: Users can select the top 'K' tokens to be considered during the generation process, while all other tokens are assigned a probability of zero.
 
-## install
+## install :gear:
 
 ```
 pip install torch numpy transformers datasets pygame pygame_gui pretty_midi music21
@@ -33,12 +33,12 @@ Dependencies:
 -  'pretty_midi'
 -  'music21'
 
-## quick start
+## Quick start :rocket:
 
 to easily run the program, just run the UI_Pygame.py script either using the IDE or cmd, which opens the GUI and starts the program. (It might take a a little bit of time to load since it needs to load a 13M parameter model :D )
 
 
-## GUI
+## GUI :computer:
 
 - You can control each slider as you like
 - Press an option from below :
@@ -50,7 +50,7 @@ to easily run the program, just run the UI_Pygame.py script either using the IDE
 ![Example Image](./ML_Piano_Gui.png)
 
 
-## Loss plots 
+## Loss plots :chart_with_downwards_trend:
 
 Due to my humble computation resources of only 1 GPU on my laptop, I only trained two models ( 5.6M and 13M parameters ) . Trying to train bigger models would be so slow and take a lot of time, my laptop might catch on fire if trained for too long on big models haha
 
@@ -70,7 +70,7 @@ Due to my humble computation resources of only 1 GPU on my laptop, I only traine
 As we can see the 13M model performed better, this is an indication that more Layers/Heads can lead to better results. Adding more Layers can make the model capture and learn more complex patterns, Adding more heads can increase the attention to how different tokens affect/interact with each other in the input ( Input used is of size 200 tokens ). A better environment with better computation resources would allow further Hyperparameter tuning in hopes of achieving lower val/training loss.
 
 
-## Encoding & Decoding MIDI to Text and Vice-Versa:
+## Encoding & Decoding MIDI to Text and Vice-Versa: :musical_note::left_right_arrow::abc:
 
 - **Encoding from MIDI to Text**
    - **Reading MIDI**: Utilizes the `music21` library to parse the MIDI files.
@@ -95,7 +95,7 @@ As we can see the 13M model performed better, this is an indication that more La
      - `sepxx d2` represents a rest or no-note situation lasting for 2 time steps.
 
 
-## Data Augmentation Techniques for Music
+## Data Augmentation Techniques for Music :twisted_rightwards_arrows:
 
 Data augmentation is crucial in machine learning models for music generation to improve their ability to generalize from the training set to unseen data. Below are the techniques used and why they are effective for musical data:
 
@@ -114,7 +114,7 @@ Data augmentation is crucial in machine learning models for music generation to 
 In this example, the transposition of a note with pitch 60 by an interval of +2 would result in a note with pitch 62. Similarly, stretching a note with a duration of 5 by a stretch factor of 0.5 would result in a new duration of 3 (rounded).
 
 
-## Acknowledgments
+## Acknowledgments :clap:
 
 ### Repositories
 - **nanoGPT by Andrej Karpathy**: Forked this repository to adapt and build upon its foundational GPT-2-based model. [nanoGPT](https://github.com/karpathy/nanoGPT)
