@@ -9,12 +9,12 @@ dataset: piano
 gradient_accumulation_steps: 4
 batch_size: 64
 block_size: 200
-n_layer: 3
-n_head: 6
-n_embd: 384
+n_layer: 4
+n_head: 8
+n_embd: 512
 dropout: 0.1
 bias: False
-learning_rate: 1e-06
+learning_rate: 1e-04
 max_iters: 500000
 weight_decay: 0.1
 beta1: 0.9
