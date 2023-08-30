@@ -117,10 +117,10 @@ In this example, the transposition of a note with pitch 60 by an interval of +2 
 ## Acknowledgments
 
 ### Repositories
-- **nanoGPT by Andrej Karpathy**: Forked this repository to adapt and build upon its foundational GPT-2-based model. [nanoGPT](https://github.com/your-link-to-nanoGPT)
+- **nanoGPT by Andrej Karpathy**: Forked this repository to adapt and build upon its foundational GPT-2-based model. [nanoGPT](https://github.com/karpathy/nanoGPT)
 
 ### Datasets
-- **ADL Piano MIDI**: Utilized this dataset for training and testing the model. [Dataset](https://your-link-to-dataset)
+- **ADL Piano MIDI**: Utilized this dataset for training and testing the model. [Dataset](https://paperswithcode.com/dataset/adl-piano-midi)
 
 
 
