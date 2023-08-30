@@ -40,12 +40,14 @@ to easily run the program , just run the UI_Pygame.py script either using the ID
 
 ## GUI
 
- *) You can control each slider as you like
- *) Press an option from below : New Piece , Continue Song (Retry Song works only if the last generation was from pressing Continue Son button )
-    after selecting an option , press Generate and wait until the text says Generation Complete! , and then you can press play to listen to the piece generated . 
-    Also , the piano roll visual of the generated piece appears below :).
+- You can control each slider as you like
+- Press an option from below :
+     1) New Piece
+     2) Continue Song (Retry Song works only if the last generation was from pressing Continue Song button )
+- after selecting an option , press Generate and wait until the text says Generation Complete! , and then you can press play to listen to the piece generated . 
+  Also , the piano roll visual of the generated piece appears below :).
 
-    
+![Example Image](./ML_Piano_Gui.png)
 
 
 
