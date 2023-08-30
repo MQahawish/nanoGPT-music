@@ -114,3 +114,18 @@ Data augmentation is crucial in machine learning models for music generation to 
 In this example, the transposition of a note with pitch 60 by an interval of +2 would result in a note with pitch 62. Similarly, stretching a note with a duration of 5 by a stretch factor of 0.5 would result in a new duration of 3 (rounded).
 
 
+## Acknowledgments
+
+### Repositories
+- **nanoGPT by Andrej Karpathy**: Forked this repository to adapt and build upon its foundational GPT-2-based model. [nanoGPT](https://github.com/your-link-to-nanoGPT)
+
+### Datasets
+- **ADL Piano MIDI**: Utilized this dataset for training and testing the model. [Dataset](https://your-link-to-dataset)
+
+
+
+## Note on Commits :exclamation:
+
+> :warning: **Important:** Most of the initial work on this project was done locally and therefore, the commit history may not fully reflect the development timeline. This is largely due to the constraints of working with a large data set.
+
+
