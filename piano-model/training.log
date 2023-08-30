@@ -1,4 +1,0 @@
-root - WARNING - step 0: train loss 6.840044, val loss 6.833322, lr 0.000000, mfu -100.00%
-root - WARNING - step 250: train loss 2.528511, val loss 2.548559, lr 0.000025, mfu 3.49%
-root - WARNING - step 500: train loss 1.881925, val loss 1.911583, lr 0.000050, mfu 3.32%
-root - WARNING - step 750: train loss 1.593329, val loss 1.633011, lr 0.000075, mfu 3.12%
