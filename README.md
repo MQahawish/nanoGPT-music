@@ -24,7 +24,7 @@ pip install torch numpy transformers datasets pygame pygame_gui pretty_midi musi
 
 Dependencies:
 
--  'pytorch'
+-  'PyTorch'
 -  'numpy'
 -  'transformers' for huggingface transformers  (to load GPT-2 checkpoints)
 -  'datasets' for huggingface datasets (if you want to download + preprocess OpenWebText)
@@ -35,7 +35,7 @@ Dependencies:
 
 ## quick start
 
-to easily run the program , just run the UI_Pygame.py script either using the IDE or cmd , which opens the gui and starts the program . (it might take a a little bit of time to load , since it needs to load a 13M parameter model :D )
+to easily run the program, just run the UI_Pygame.py script either using the IDE or cmd, which opens the GUI and starts the program. (It might take a a little bit of time to load since it needs to load a 13M parameter model :D )
 
 
 ## GUI
@@ -43,13 +43,26 @@ to easily run the program , just run the UI_Pygame.py script either using the ID
 - You can control each slider as you like
 - Press an option from below :
      1) New Piece
-     2) Continue Song (Retry Song works only if the last generation was from pressing Continue Song button )
-- after selecting an option , press Generate and wait until the text says Generation Complete! , and then you can press play to listen to the piece generated . 
-  Also , the piano roll visual of the generated piece appears below :).
+     2) Continue Song (Retry Song works only if the last generation was from pressing the Continue Song button )
+- After selecting an option, press Generate and wait until the text says Generation Complete! , and then you can press play to listen to the piece generated. 
+  Also, the piano roll visual of the generated piece appears below :).
 
 ![Example Image](./ML_Piano_Gui.png)
 
 
+## Loss plots 
 
+Due to my humble computation resources of only 1 GPU on my laptop, I only trained two models ( 5.6M and 13M parameters ) . Trying to train bigger models would be so slow and take a lot of time, my laptop might catch on fire if trained for too long on big models haha
+
+- 5.6M model
+
+![Example Image](./piano-model-5.63M\loss_plot.png)
+
+** The spike is because I changed the learning rate by mistake in an interval of time-steps during training 
+
+
+- 13M model
+
+![Example Image](./piano-model-13M\loss_plot.png)
 
 
