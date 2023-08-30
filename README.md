@@ -95,3 +95,22 @@ As we can see the 13M model performed better, this is an indication that more La
      - `sepxx d2` represents a rest or no-note situation lasting for 2 time steps.
 
 
+## Data Augmentation Techniques for Music
+
+Data augmentation is crucial in machine learning models for music generation to improve their ability to generalize from the training set to unseen data. Below are the techniques used and why they are effective for musical data:
+
+### Transposition
+- **Description**: Shifts the pitch of each note in the song by a certain interval.
+- **Key Point**: Ensures that the transposed notes stay within a valid range (21-108).
+- **Why it works for music**: Transposing a song doesn't change its harmonic structure but presents it in a different key, thereby allowing the model to learn the song's structure independent of its key.
+
+### Stretching
+- **Description**: Alters the duration of each note in the song by a given stretch factor.
+- **Key Point**: The duration of a note after stretching is rounded and is at least 1.
+- **Why it works for music**: Stretching time can simulate different tempos, teaching the model to recognize the same patterns at varying speeds.
+
+### Example
+
+In this example, the transposition of a note with pitch 60 by an interval of +2 would result in a note with pitch 62. Similarly, stretching a note with a duration of 5 by a stretch factor of 0.5 would result in a new duration of 3 (rounded).
+
+
