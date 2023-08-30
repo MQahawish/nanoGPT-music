@@ -67,6 +67,28 @@ Due to my humble computation resources of only 1 GPU on my laptop, I only traine
 
 ![Example Image](./piano-model-13M/loss_plot.png)
 
+As we can see the 13M model performed better, this is an indication that more Layers/Heads can lead to better results. Adding more Layers can make the model capture and learn more complex patterns, Adding more heads can increase the attention to how different tokens affect/interact with each other in the input ( Input used is of size 200 tokens ). A better environment with better computation resources would allow further Hyperparameter tuning in hopes of achieving lower val/training loss.
 
 
-As we can see the 13M model performed better, this is an indication that more Layers/Heads can lead to better results . Adding more Layers can make the model capture and learn more complex patterns, Adding more heads can increase the attention to how different tokens affect/interact with each other in the input ( Input used is of size 200 tokens ) . A better environment with better computation resources would allow further Hyperparameter tuning in hopes of achieving lower val/training loss .
+## Encoding & Decoding MIDI to Text and Vice-Versa:
+
+- Encoding from MIDI to Text
+   -Reading MIDI: Utilizes the music21 library to parse the MIDI files.
+   -Pitch and Duration: Iterates through the notes and chords to gather their pitch and duration.
+   -Piano-Roll Array: Declares a piano-roll array where rows correspond to time-frequency windows and columns correspond to the range of pitches.
+   -Places a '1' in the row corresponding to a note's start time and '2' in subsequent rows to indicate the note is sustained.
+   -Text Conversion: Translates the filled array into words. Notes are denoted as n[pitch] d[duration] and rests are denoted by sepxx.
+- Decoding from Text to MIDI
+   -Reading Text: Parses the text representation starting with the token START and ending with END.
+   -Array Conversion: Converts the parsed text back into a piano-roll array.
+   -MIDI Generation: Uses the music21 library to convert the array back into a MIDI file.
+
+
+- Example Text Encoding
+   A sample text encoding might look like:
+   ** START n60 d5 n62 d3 sepxx d2 n65 d4 END **
+   In this example:
+   START and END are tokens that signify the beginning and end of the text.
+   n60 d5 denotes a note with a pitch of 60 lasting for 5 time steps.
+   sepxx d2 represents a rest or no-note situation lasting for 2 time steps.
+
