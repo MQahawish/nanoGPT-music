@@ -16,7 +16,7 @@ Additionally, the GUI offers controls for adjusting various parameters of the mo
 2) Number of Tokens to Generate: This specifies the length of the generated output.
 3) Top K Tokens: Users can select the top 'K' tokens to be considered during the generation process, while all other tokens are assigned a probability of zero.
 
-## install :gear:
+## Install :gear:
 
 ```
 pip install torch numpy transformers datasets pygame pygame_gui pretty_midi music21
