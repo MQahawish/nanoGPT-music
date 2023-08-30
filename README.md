@@ -1,13 +1,20 @@
 
-# nanoGPT
+# nanoGPT for piano
 
-![nanoGPT](assets/nanogpt.jpg)
+This project extends the foundational work of Andrej Karpathy's nanoGPT, which focused on creating and training a GPT-2-based model. In our case, we have developed a graphical user interface (GUI) using the Pygame library to interact with a modified version of a GPT-2-like model. Our adaptation differs from the original nanoGPT in that it functions at the word level, as opposed to the character level.
 
-The simplest, fastest repository for training/finetuning medium-sized GPTs. It is a rewrite of [minGPT](https://github.com/karpathy/minGPT) that prioritizes teeth over education. Still under active development, but currently the file `train.py` reproduces GPT-2 (124M) on OpenWebText, running on a single 8XA100 40GB node in about 4 days of training. The code itself is plain and readable: `train.py` is a ~300-line boilerplate training loop and `model.py` a ~300-line GPT model definition, which can optionally load the GPT-2 weights from OpenAI. That's it.
+In the scope of this project, the term "word" is specialized to mean one of two musical elements:
+1) A pitch or a rest
+2) The duration associated with that pitch or rest
+   
+Through the GUI, users have the option to:
+1) Generate a completely new musical piece based on the model's training.
+2) Create a continuation of a random song from the dataset on which the model was trained.
 
-![repro124m](assets/gpt2_124M_loss.png)
-
-Because the code is so simple, it is very easy to hack to your needs, train new models from scratch, or finetune pretrained checkpoints (e.g. biggest one currently available as a starting point would be the GPT-2 1.3B model from OpenAI).
+Additionally, the GUI offers controls for adjusting various parameters of the model's generation process, including:
+1) Temperature: This affects the model's level of "creativity" in generating the piece.
+2) Number of Tokens to Generate: This specifies the length of the generated output.
+3) Top K Tokens: Users can select the top 'K' tokens to be considered during the generation process, while all other tokens are assigned a probability of zero.
 
 ## install
 
