@@ -33,10 +33,6 @@ Dependencies:
 -  'pretty_midi'
 -  'music21'
 
-## Quick start :rocket:
-
-to easily run the program, just run the UI_Pygame.py script either using the IDE or cmd, which opens the GUI and starts the program. (It might take a a little bit of time to load since it needs to load a 13M parameter model :D )
-
 
 ## GUI :computer:
 
@@ -128,6 +124,7 @@ In this example, the transposition of a note with pitch 60 by an interval of +2 
 
 A demonstration video of the project is available in a ZIP file named "Video Demonstration." Download it to see the project in action.
 
+## The model is not uploaded in the repo due to size . 
 
 ## Note on Commits :exclamation:
 
